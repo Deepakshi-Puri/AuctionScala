@@ -1,0 +1,36 @@
+@import views.html.helper.form
+@import views.html.helper.inputText
+@import views.html.helper.CSRF
+@(updateSellForm: Form[String], listingID: Long)(implicit request: MessagesProvider, req: RequestHeader)
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/updateTime.css")">
+        <title>Update Product Time</title>
+    </head>
+    <body style="background-image: url('@routes.Assets.versioned("images/timebox.jpg")'); background-size: cover; background-position: center;">
+        <div style="position: fixed; top: 30px; left: 20px">
+            <a class="homeBtn" href="@routes.ProfileController.showProfile()">Profile Page</a>
+        </div>
+
+        <div class="container">
+            <div class="form-container">
+            @form(routes.ProductController.processUpdateProductTime(listingID)) {
+                <div class="updateInfo">
+                @inputText(updateSellForm("newTime"), Symbol("required") -> "required", Symbol("type") -> "datetime-local")
+                </div>
+
+                @CSRF.formField
+
+                <div>
+                    <input type="submit" value="Update" name="updateTime" class="btn"/>
+                </div>
+            }
+            </div>
+        </div>
+
+    </body>
+</html>

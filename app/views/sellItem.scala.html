@@ -1,0 +1,58 @@
+@import play.api.i18n._
+@import views.html.helper.form
+@import views.html.helper.inputText
+@import views.html.helper.CSRF
+
+@(users: String, sellForm: Form[SellFormData])(implicit flash: Flash, request: Messages, req: RequestHeader)
+
+@main("Create New Item Listing") {
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create New Item Listing</title>
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/sellItem.css")">
+    </head>
+    <body style="background-image: url('@routes.Assets.versioned("images/timebox.jpg")'); background-size: cover; background-position: center;">
+        <div>
+        @form(routes.SellItemController.createNewListing()) {
+            <div>
+                <input type="hidden" name="@sellForm("username").name" value="@users" placeholder="@users" required>
+            </div>
+            <div>
+            @inputText(sellForm("title"), Symbol("_label") -> "Items Title", Symbol("type") -> "text")
+            </div>
+            <div>
+            @inputText(sellForm("description"), Symbol("_label") -> "Items Description", Symbol("type") -> "text")
+            </div>
+            <div class="features">
+                @inputText(sellForm("featureA"), Symbol("_label") -> "Items Feature 1", Symbol("type") -> "text")
+                @inputText(sellForm("featureB"), Symbol("_label") -> "Items Feature 2", Symbol("type") -> "text")
+                @inputText(sellForm("featureC"), Symbol("_label") -> "Items Feature 3", Symbol("type") -> "text")
+                @inputText(sellForm("featureD"), Symbol("_label") -> "Items Feature 4", Symbol("type") -> "text")
+                @inputText(sellForm("featureE"), Symbol("_label") -> "Items Feature 5", Symbol("type") -> "text")
+                @inputText(sellForm("category"), Symbol("_label") -> "Category", Symbol("type") -> "text")
+            </div>
+            <div style="margin: 14px 0">
+            @inputText(sellForm("biddingEndDate"), Symbol("_label") -> "Last Date for Bidding", Symbol("type") -> "datetime-local")
+            </div>
+            @CSRF.formField
+            <button type="submit">Sell</button>
+
+            @if(flash.get("success").isDefined) {
+                <div class="alert alert-success">
+                @flash.get("success").getOrElse("")
+                </div>
+            }
+
+            @if(flash.get("error").isDefined) {
+                <div class="alert alert-danger">
+                @flash.get("error").getOrElse("")
+                </div>
+            }
+        }
+        </div>
+        <div style="position: fixed; top: 30px; right: 20px;">
+            <a class="homeBtn" href="@routes.AuthenticationController.index()">Home Page</a>
+        </div>
+    </body>
+}

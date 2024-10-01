@@ -1,0 +1,55 @@
+body {
+    position: fixed;
+    width: 100%; /* Ensure the body covers the entire viewport */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    width: 300px;
+}
+
+.updateInfo input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.homeBtn {
+    text-decoration: none;
+    background-color: #f65b6a;
+    border: 1px solid #f87380;
+    padding: 8px;
+    border-radius: 5px;
+    color: aliceblue;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.homeBtn:hover {
+    background-color: #f87380;
+    border: 1px solid #f65b6a;
+}

@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    background: #181818;
+    color: #fff;
+    overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 300;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+#left {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    margin-left: 60px;
+}
+
+#right {
+    flex: 1;
+}
+
+/* Sign In */
+#signin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    padding-bottom: 1rem;
+}
+
+#signin form {
+    width: 80%;
+    padding-bottom: 20px;
+    margin-right: 20px;
+}
+
+
+#signin .logo img {
+    width: 300px;
+    margin-bottom: 8vh;
+}
+
+#signin .quote{
+    margin-right: 20px;
+    text-align: center;
+}
+
+#signin label {
+    font-size: 0.9rem;
+    line-height: 2rem;
+    font-weight: 500;
+}
+
+#signin input[type="text"],
+#signin input[type="password"] {
+    margin-bottom: 1.3rem;
+    width: 100%;
+    border-radius: 2px;
+    background: #181818;
+    border: 1px solid #555;
+    color: #ccc;
+    padding: 0.5rem 1rem;
+    line-height: 1.3rem;
+}
+
+#signin input[type="text"]:hover,
+#signin input[type="password"]:hover {
+    background-color: rgb(29, 28, 28);
+}
+
+#signin .primary-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    height: 2.7rem;
+    border: 0;
+    border-radius: 2px;
+    font-weight: 500;
+    background: #FF0000;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.5s;
+}
+
+#signin .primary-btn:hover {
+    background-color: #EB4D4B;
+}
+
+/* Showcase */
+#showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Footer */
+#main-footer {
+    color: #ccc;
+    text-align: center;
+    font-size: 0.8rem;
+    max-width: 80%;
+    padding-top: 0rem;
+}
+
+#main-footer a {
+    color: #EB4D4B;
+    text-decoration: underline;
+}
+
+/* Right */
+.container {
+    position: relative;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.container .content {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+}
+
+.content h1 {
+    color: red;
+    margin-left: 12px;
+    text-align: center
+}
+
+.content h2 {
+    margin-left: 12px;
+    text-decoration: underline;
+    margin-bottom: 40px;
+}
+
+.content label{
+    display: none;
+}
+
+.content input[type="text"],
+.content input[type="password"],
+.content input[type="email"] {
+    margin-bottom: 0.7rem;
+    width: 60%;
+    border-radius: 2px;
+    background: #181818;
+    border: 1px solid #555;
+    color: #ccc;
+    padding: 0.4rem;
+    line-height: 1.5rem;
+}
+
+.content input[type="text"]:hover,
+.content input[type="password"]:hover,
+.content input[type="email"]:hover {
+    background-color: rgb(29, 28, 28);
+}
+
+/* Create Account Button */
+.create-btn {
+    width: 150px;
+    padding: 0.6rem 1rem;
+    height: 2.3rem;
+    background-color: transparent;
+    border: 1px solid;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.5s;
+    margin: 20px auto;
+}
+
+.create-btn:hover {
+    border-color: rgb(235, 69, 69);
+    color: #fff;
+    background-color: red;
+}
+
+.alert-success {
+    color: #3c763d;
+}
+
+.alert-danger {
+    color: #a94442;
+}
+

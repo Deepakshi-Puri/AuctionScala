@@ -1,0 +1,121 @@
+@import java.time.LocalDateTime
+@import java.time.format.DateTimeFormatter
+@(username: String, products: Seq[SellFormData], highestBid: Map[Long, Option[ItemsBid]], sellForm: Form[SellFormData])(implicit request: RequestHeader, provider: MessagesProvider, flash: Flash)
+@import helper._
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/profile.css")">
+        <title>@username's Profile</title>
+    </head>
+    <body>
+
+        <div class="sidebar">
+            <h2>Profile Menu</h2>
+            <ul>
+                <li><a href="#user-profile">User Profile</a></li>
+                <li><a href="#your-products">Your Products</a></li>
+                <li><a href="@routes.AuthenticationController.index()">Home Page</a></li>
+                <li><a href="@routes.SellItemController.sellItem()">Sell New Product</a></li>
+            </ul>
+            @form(routes.AuthenticationController.logout) {
+                @CSRF.formField
+                <input type="submit" value="Logout"/>
+            }
+        </div>
+
+        <div class="content">
+            <div id="user-profile"><h1>@username's Profile</h1></div>
+            @if(flash.get("success").isDefined) {
+                <div class="alert alert-success">
+                @flash.get("success").getOrElse("")
+                </div>
+            }
+
+            @if(flash.get("error").isDefined) {
+                <div class="alert alert-danger">
+                @flash.get("error").getOrElse("")
+                </div>
+            }
+            @if(products.isEmpty) {
+                <div class="product-section-empty" id="your-products-empty">
+                    <br>
+                    <h2>Your Products</h2>
+                    <div>
+                        <div>
+                            <h3>"You have not sold any products yet"</h3>
+                            <br>
+                            <img src="@routes.Assets.versioned("images/emptyProducts.png")" alt="Empty Profile Image">
+                            <br>
+                            <a href="@routes.SellItemController.sellItem()">Sell a Product</a>
+                        </div>
+                    </div>
+                </div>
+            } else {
+                <div class="product-section" id="your-products">
+                    <br>
+                    <h2>Your Products</h2>
+                    <div class="product-grid">
+                    @for(product <- products) {
+                        <div class="product">
+                            <h3>@product.title</h3>
+                            <div class="info-box">
+                                <div class="info">
+                                    <p>End Date:</p>
+                                    <h4 class="bidEnd">@product.biddingEndDate</h4>
+                                </div>
+                                @product.listingID.map { listingID =>
+                                    @highestBid.get(listingID).flatten.map { bid =>
+                                    <div class="info">
+                                        <div>
+                                            <p>Highest Bid: </p>
+                                            <h4>@bid.bidPrice</h4>
+                                        </div>
+
+                                        <div>
+                                            <p>Bid By: </p>
+                                            <h4>@bid.username</h4>
+                                        </div>
+                                    </div>
+                                    @if(LocalDateTime.parse(product.biddingEndDate, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")).compareTo(LocalDateTime.now()) <= 0) {
+                                        <h4 style="margin-left: 5px; font-size: small; color: #f65b6a">(Bidding Time Ended)</h4>
+                                    }
+                                    }.getOrElse {
+                                        <div class="info">
+                                            <p>No bid placed yet</p>
+                                        </div>
+                                    }
+                                }.getOrElse {
+                                    <div class="info">
+                                        <p>No bid placed yet</p>
+                                    </div>
+                                }
+
+                                </div>
+                            <div class="product-options">
+                                <a href="@routes.ProductController.deleteProduct(product.listingID.getOrElse(0L))">Delete Product</a>
+                                <a href="@routes.ProductController.updateProductTimeForm(product.listingID.getOrElse(0L))">Update Time</a>
+                            </div>
+                        </div>
+
+                    }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+
+        <script type="text/javascript">
+                const productEndDates = document.querySelectorAll('.bidEnd');
+                productEndDates.forEach(element => {
+                    element.textContent = formatDateTime(element.textContent.trim());
+                });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,101 @@
+@import views.html.helper.form
+@import views.html.helper.inputText
+@import views.html.helper.CSRF
+@(userForm: Form[UserInfo], loginForm: Form[LoginInfo])(implicit request: MessagesRequestHeader, flash: Flash)
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign In - Bid Crush</title>
+
+        <link rel="icon" href="@routes.Assets.versioned("images/logo.png")">
+
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/loginStyle.css")">
+
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="left">
+                <div id="signin">
+                    <div class="quote">
+                        <h1>
+                            It creates an AUCTION TYPE of environment.
+                        </h1>
+                    </div>
+                    @form(routes.AuthenticationController.authenticateUser()) {
+                        <div>
+                        @inputText(loginForm("username"),  Symbol("placeholder") -> "Enter your username", Symbol("required") -> "required")
+                        </div>
+
+                        <div>
+                        @inputText(loginForm("password"),  Symbol("placeholder") -> "Enter your password", Symbol("required") -> "required", Symbol("type") -> "password")
+                        </div>
+
+                        @CSRF.formField
+
+                        <div>
+                            <input type="submit" value="Login" class="primary-btn"/>
+                        </div>
+                    }
+                </div>
+                <footer id="main-footer">
+                    <p>Copyright &copy; 2021, BidCrush All Rights Reserved</p>
+                    <div>
+                        <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a>
+                    </div>
+                </footer>
+            </div>
+
+            <div id="right">
+                <div id="showcase">
+                    <div class="container">
+                        <img height="600px" src="@routes.Assets.versioned("images/right_background.jpg")" alt="company"
+                        style="width:100%;">
+                        <div class="content">
+                            <h1>New here?</h1>
+                            <h2>Create your account</h2>
+
+                            @form(routes.AuthenticationController.insertUser()) {
+                                <div class="form-group">
+                                @inputText(userForm("username"), Symbol("required") -> "required", Symbol("placeholder") -> "User Name")
+                                </div>
+
+                                <div class="form-group">
+                                @inputText(userForm("password"), Symbol("required") -> "required", Symbol("type") -> "password", Symbol("placeholder") -> "Password")
+                                </div>
+
+                                <div class="form-group">
+                                @inputText(userForm("name"), Symbol("required") -> "required", Symbol("placeholder") -> "Full Name")
+                                </div>
+
+                                <div class="form-group">
+                                @inputText(userForm("email"), Symbol("required") -> "required", Symbol("type") -> "email", Symbol("placeholder") -> "Email")
+                                </div>
+
+                                @CSRF.formField
+
+                                <div class="form-group">
+                                    <input type="submit" value="Create Account" class="create-btn"/>
+                                </div>
+
+                                @if(flash.get("success").isDefined) {
+                                    <div class="alert alert-success">
+                                    @flash.get("success").getOrElse("")
+                                    </div>
+                                }
+
+                                @if(flash.get("error").isDefined) {
+                                    <div class="alert alert-danger">
+                                    @flash.get("error").getOrElse("")
+                                    </div>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+

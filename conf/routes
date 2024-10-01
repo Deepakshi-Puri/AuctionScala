@@ -1,0 +1,22 @@
+
+GET         /home                                controllers.AuthenticationController.index()
+GET         /                                    controllers.AuthenticationController.showLoginForm()
+POST        /login                               controllers.AuthenticationController.authenticateUser()
+POST        /create-user                         controllers.AuthenticationController.insertUser()
+POST        /saveBid                             controllers.ItemController.saveBid()
+GET         /sellItem                            controllers.SellItemController.sellItem()
+POST        /sellItemSuccess                     controllers.SellItemController.createNewListing()
+GET         /profile                             controllers.ProfileController.showProfile()
+GET         /sellersProfile/:sellersName         controllers.ProfileController.showSellersProfile(sellersName: String)
+GET         /category/:category                  controllers.ProfileController.showCategoryProducts(category: String)
+GET         /logout                              controllers.AuthenticationController.showLoginForm
+POST        /logout                              controllers.AuthenticationController.logout
+GET         /deleteProduct/:listingId            controllers.ProductController.deleteProduct(listingId: Long)
+POST        /deleteProduct/:listingId            controllers.ProductController.deleteProduct(listingId: Long)
+GET         /updateProductTime/:listingID        controllers.ProductController.updateProductTimeForm(listingID: Long)
+POST        /updateProductTime/:listingID        controllers.ProductController.processUpdateProductTime(listingID: Long)
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                        controllers.Assets.versioned(path="/public", file: Asset)
